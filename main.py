@@ -4,6 +4,7 @@ from bs4 import BeautifulSoup
 import slackweb
 import func
 
+# jsonファイルのwebhookURLやらテストの日やら全部入っている
 with open("./data.json") as fp:
     data = json.load(fp)
 
