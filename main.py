@@ -1,4 +1,5 @@
 import json
+import tqdm
 import requests
 from bs4 import BeautifulSoup
 import slackweb
@@ -14,17 +15,17 @@ response = requests.get(data["TNCT_URL"])
 bs = BeautifulSoup(response.content, "html.parser")
 
 output = func.get_date() + "\n"
-not_change = "現在のところ\n休講・変更の予定はありません"
+not_change = "現在のところ\n休講・変更の予定はありません．"
 
-print("授業変更情報を取得中")
+print("授業変更情報を取得中...")
 for p in bs.select("p"):
     if "現在のところ休講・変更の予定はありません" in p.text:
-        print("授業変更情報は見つかりませんでした")
+        print("授業変更情報は見つかりませんでした．")
         output += not_change
         slack.notify(text=output)
         exit()
 
-print("授業変更情報の存在を確認．探索します")
+print("授業変更情報の存在を確認．探索します．")
 select_td = bs.select("td")
 
 index = 0
@@ -46,8 +47,18 @@ for i, td in enumerate(select_td[index:]):
 
 if flag is False:
     output += not_change
-    print("授業変更情報は見つかりませんでした")
+    print("授業変更情報は見つかりませんでした．")
+
+print("テストまでの日数を検索します．")
+test_count = func.test_count()
+
+if test_count is not None:
+    print(test_count["exam_name"] + "がヒットしました．")
+    print(test_count["exam_name"] + "テストまであと" + str(test_count["days_left"]) + "日です．")
+    output += "\n" + test_count["exam_name"] + "テストまであと" + str(test_count["days_left"]) + "日です．"
+
+else:
+    print("該当するテストは見つかりませんでした")
 
 slack.notify(text=output)
-
 
