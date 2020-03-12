@@ -2,6 +2,7 @@ import json
 import requests
 from bs4 import BeautifulSoup
 import slackweb
+from tqdm import tqdm
 import func
 
 # jsonファイルにwebhookURLやらテストの日やら全部入っている
@@ -35,7 +36,7 @@ for td in select_td:
         index += 1
 
 flag = False
-for i, td in enumerate(select_td[index:]):
+for i, td in enumerate(tqdm(select_td[index:])):
     if func.get_date() in td.text:
         if flag is False:
             output += "<!channel>" + "\n"

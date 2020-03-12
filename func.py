@@ -1,5 +1,6 @@
 import datetime
 import json
+from tqdm import tqdm
 
 week = ["月", "火", "水", "木", "金", "土", "日"]
 exam = ["pre_first_exam", "pre_second_exam", "lat_first_exam", "lat_second_exam"]
@@ -22,7 +23,7 @@ def test_count():
         data = json.load(fp)
     for i in range(4):
         exam[i] = data[exam[i]]
-    for i in range(4):
+    for i in tqdm(range(4)):
         test_date = datetime.datetime.strptime(exam[i], "%Y年%m月%d日")
         test_date = datetime.date(year=test_date.year, month=test_date.month, day=test_date.day)
         now = datetime.date.today()
