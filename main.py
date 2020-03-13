@@ -4,8 +4,10 @@ from bs4 import BeautifulSoup
 import slackweb
 import func
 
+path = "./data.json"
+
 # jsonファイルにwebhookURLやらテストの日やら全部入っている
-with open("./data.json") as fp:
+with open(path) as fp:
     data = json.load(fp)
 
 slack = slackweb.Slack(url=data["test_slack"])
@@ -17,7 +19,7 @@ print("授業変更情報を取得します")
 output = func.get_class_change(bs)
 
 print("テストまでの日数を検索します．")
-test_count = func.test_count()
+test_count = func.test_count(path)
 
 if test_count is not None:
     print(test_count["exam_name"] + "がヒットしました．")

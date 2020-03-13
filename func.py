@@ -21,8 +21,8 @@ def shape(origin):
         dest = origin
     return dest
 
-def test_count():
-    with open("./data.json") as fp:
+def test_count(path):
+    with open(path) as fp:
         data = json.load(fp)
     for i in range(4):
         exam[i] = data[exam[i]]
