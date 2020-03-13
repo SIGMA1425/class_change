@@ -6,9 +6,9 @@ week = ["月", "火", "水", "木", "金", "土", "日"]
 exam = ["pre_first_exam", "pre_second_exam", "lat_first_exam", "lat_second_exam"]
 exam_name = ["前期中間", "前期定期", "後期中間", "後期定期"]
 
-def get_date():
+def get_date(delta):
     now = datetime.datetime.now()
-    now -= datetime.timedelta(days=38)
+    now += datetime.timedelta(days=delta)
     date = str(now.month) + "月" + str(now.day) + "日"
     date += "(" + week[now.weekday()] + ")"
     return date
@@ -36,8 +36,8 @@ def test_count(path):
     
     return None
 
-def get_class_change(bs):
-    output = get_date() + "\n"
+def get_class_change(bs, delta):
+    output = get_date(delta) + "\n"
     not_change = "現在のところ\n休講・変更の予定はありません．"
     
     for p in bs.select("p"):
@@ -59,7 +59,7 @@ def get_class_change(bs):
     console_output = ""
     flag = False
     for i, td in enumerate(tqdm(select_td[index:])):
-        if get_date() in td.text:
+        if get_date(delta) in td.text:
             if flag is False:
                 output += "<!channel>" + "\n"
                 flag = True

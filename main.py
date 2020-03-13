@@ -3,6 +3,10 @@ import requests
 from bs4 import BeautifulSoup
 import slackweb
 import func
+import quickstart as qk
+
+TODAY = 0
+TOMORROW = 1
 
 path = "./data.json"
 
@@ -16,7 +20,7 @@ response = requests.get(data["TNCT_URL"])
 bs = BeautifulSoup(response.content, "html.parser")
 
 print("授業変更情報を取得します")
-output = func.get_class_change(bs)
+output = func.get_class_change(bs, TOMORROW)
 
 print("テストまでの日数を検索します．")
 test_count = func.test_count(path)
@@ -28,6 +32,9 @@ if test_count is not None:
 
 else:
     print("該当するテストは見つかりませんでした")
+
+print("行事予定を取得します")
+output += qk.get_event(TOMORROW)
 
 slack.notify(text=output)
 
