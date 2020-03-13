@@ -32,9 +32,12 @@ def test_count(path):
         now = datetime.date.today()
         
         if 0 < (test_date - now).days <= 14:
-            return {"exam_name": exam_name[i], "days_left": (test_date - now).days}
+            print(exam_name[i] + "がヒットしました．")
+            print(exam_name[i] + "テストまであと" + str((test_date - now).days) + "日です．")
+            return  "\n" + exam_name[i] + "テストまであと" + str((test_date - now).days) + "日です．"
     
-    return None
+    print("該当するテストは見つかりませんでした")
+    return ""
 
 def get_class_change(bs, delta):
     output = get_date(delta) + "\n"
