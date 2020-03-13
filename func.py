@@ -34,7 +34,7 @@ def test_count(path):
         if 0 < (test_date - now).days <= 14:
             return {"exam_name": exam_name[i], "days_left": (test_date - now).days}
     
-    return
+    return None
 
 def get_class_change(bs):
     output = get_date() + "\n"
