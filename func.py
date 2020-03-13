@@ -74,3 +74,21 @@ def get_class_change(bs, delta):
         print("授業変更情報は見つかりませんでした．")
     
     return output
+
+def holiday_check(bs, delta):
+    for i in bs.find_all(background="./img/kyuujitsu.gif"):
+        if  datetime.date.today().day+delta == int(i.text):
+            print("休日です．")
+            return True
+    
+    for i in bs.find_all(background="./img/doyou.gif"):
+        if  datetime.date.today().day+delta == int(i.text):
+            print("休日です．")
+            return True
+
+    for i in bs.find_all(background="./img/nichiyou.gif"):
+        if datetime.date.today().day+delta == int(i.text):
+            print("日曜です．")
+            return True
+    
+    return False
