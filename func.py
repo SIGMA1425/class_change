@@ -60,18 +60,16 @@ def get_class_change(bs, delta):
             index += 1
 
     console_output = ""
-    flag = False
     for i, td in enumerate(tqdm(select_td[index:])):
         if get_date(delta) in td.text:
-            if flag is False:
+            if not "<!channel>" in output:
                 output += "<!channel>" + "\n"
-                flag = True
-            output += select_td[i+index].text.replace(get_date(), "") + "\n"
+            output += select_td[i+index].text.replace(get_date(delta), "") + "\n"
             output += shape(select_td[i+index+1].text)
             console_output += select_td[i+index+1].text + "\n"
 
     print(console_output, end="")
-    if flag is False:
+    if not "<!channel>" in output:
         output += not_change
         print("授業変更情報は見つかりませんでした．")
     
