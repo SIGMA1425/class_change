@@ -37,4 +37,5 @@ print("行事予定を取得します")
 output += qk.get_event(TOMORROW)
 
 slack.notify(text=output)
+print("slackへのメッセージの送信が正常に行われました．")
 

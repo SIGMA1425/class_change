@@ -38,13 +38,13 @@ def get_event(delta):
 
     # Call the Calendar API
     now = datetime.datetime.utcnow().isoformat() + 'Z' # 'Z' indicates UTC time
-    print('Getting the upcoming 10 events')
+    print('予定を取得します．')
     events_result = service.events().list(calendarId='primary', timeMin=now, maxResults=10, singleEvents=True,
                                             orderBy='startTime').execute()
     events = events_result.get('items', [])
 
     if not events:
-        print('No upcoming events found.')
+        print('予定が見つかりませんでした．')
         return "\n行事など\n・なし\n"
     
     output = "\n行事など\n"
