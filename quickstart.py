@@ -45,20 +45,19 @@ def get_event(delta):
 
     if not events:
         print('予定が見つかりませんでした．')
-        return "\n行事など\n・なし\n"
+        return ""
     
-    output = "\n行事など\n"
+    output = ""
     flag = False
     for event in events:
         start = event['start'].get('dateTime', event['start'].get('date'))
         print("  ", end="")
         print(start, event['summary'])
         if (datetime.datetime.now() + datetime.timedelta(days=delta)).strftime("%Y-%m-%d") in start:
-                flag = True
-                output += "・" + event['summary'] + "\n"
-    
-    if flag is False:
-        output += "・なし\n"
+            if not "\n行事など\n" in output:
+                output += "\n行事など\n"
+            output += "・" + event['summary'] + "\n"
+
     return output
 
 

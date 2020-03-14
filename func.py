@@ -40,7 +40,7 @@ def test_count(path):
     return ""
 
 def get_class_change(bs, delta):
-    output = get_date(delta) + "\n"
+    output = ""
     not_change = "現在のところ\n休講・変更の予定はありません．"
     
     for p in bs.select("p"):
