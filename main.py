@@ -35,12 +35,9 @@ if holiday_flag is False:
     event = qk.get_event(today_or_tomorrow)
     if not event == "" and not "<!channel>" in output:
         output = func.get_date(today_or_tomorrow) + "\n" + "<!channel>\n" + output
-        output += event
+    output += event
     print("テストまでの日数を検索します．")
     output += func.test_count(path)
-
-    
-
 
 else:
     output = ""
@@ -48,12 +45,14 @@ else:
     print("行事予定を取得します")
     event = qk.get_event(today_or_tomorrow)
     if not event == "":
-        output = func.get_date(today_or_tomorrow) + "\n" + "<!channel>\n"
-        output += event
+        output = func.get_date(today_or_tomorrow) + "\n" + "<!channel>"
+    output += event
 
     print("テストまでの日数を検索します．")
-    output += func.test_count(path)
-
+    test = func.test_count(path)
+    if not test == "" and output == "":
+        output = func.get_date(today_or_tomorrow) + "\n"
+    output += test
     
 if output == "":
     print("slackへ送信するメッセージはありません")
